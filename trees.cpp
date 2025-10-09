@@ -42,8 +42,35 @@ vector<vector<int>> BFS_traversal(Node* root){
     }
     return ans;
 }
-vector<vector<int>> preorder_traversal(Node* root){
-    
+//root,left,right
+void preorder_traversal(Node* root){
+    Node* node=root; //not really required but still for safety
+    if(node==NULL){
+        return;
+    }
+    cout<<node->data<<" ";
+    preorder_traversal(node->left);
+    preorder_traversal(node->right);
+}
+//left,right,root
+void postorder_traversal(Node* root){
+    Node* node=root;
+    if(node==NULL){
+        return;
+    }
+    postorder_traversal(node->left);
+    postorder_traversal(node->right);
+    cout<<node->data<<" ";
+}
+//left,root,right
+void inorder_traversal(Node* root){
+    Node* node=root;
+    if(node==NULL){
+        return;
+    }
+    inorder_traversal(node->left);
+    cout<<node->data<<" ";
+    inorder_traversal(node->right);
 }
 int32_t main(){
     ios::sync_with_stdio(false);
