@@ -42,9 +42,10 @@ vector<vector<int>> BFS_traversal(Node* root){
     }
     return ans;
 }
+//Depth First Search types:
 //root,left,right
 void preorder_traversal(Node* root){
-    Node* node=root; //not really required but still for safety
+    Node* node=root; //not really required still good for safety
     if(node==NULL){
         return;
     }
@@ -71,6 +72,43 @@ void inorder_traversal(Node* root){
     inorder_traversal(node->left);
     cout<<node->data<<" ";
     inorder_traversal(node->right);
+}
+Node* populate_tree(){
+    int val;
+    cout<<"Enter the value of root\n";
+    cin>>val;
+    if(val==-1) return NULL;
+    Node* root=new Node(val);
+    cout<<"Root created\n";
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty()){
+        cout<<"Enter the left and right values for the node "<<q.front()->data;
+        int leftval,rightval;
+        cin>>leftval>>rightval;
+        Node* left=new Node(leftval);
+        Node* right= new Node(rightval);
+    }
+    return root;
+}
+vector<int> iterative_inorder(Node* root){
+    vector<int> ans;
+    stack<Node*> s;
+    Node* n=root;    
+    while(!s.empty()){
+        if(n!=NULL){
+        s.push(n);
+        n=n->left;
+        }
+        else if(n==NULL){
+            if(s.empty()) break;
+            n=s.top();
+            s.pop();
+            ans.push_back(n->data);
+            n=n->right;
+        }
+    } 
+    return ans;
 }
 int32_t main(){
     ios::sync_with_stdio(false);
