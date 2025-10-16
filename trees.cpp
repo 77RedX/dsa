@@ -149,7 +149,13 @@ bool isSameTree(Node* p, Node* q) {
        if(!p || !q) return false; //1 null then false same as p==null || q==null
        if(p->val!=q->val) return false; // value mismatch
        return isSameTree(p->left,q->left) && isSameTree(p->right,q->right);
-    }
+}
+int maxDepth(Node* root){
+    if(root==NULL) return 0;
+    int lh=maxDepth(root->left);
+    int rh=maxDepth(root->right);
+    return 1+max(lh,rh);
+}
 int32_t main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
