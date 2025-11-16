@@ -42,7 +42,7 @@ int number_province(int n, vector<vector<int>> adj_list){
 }
 class matrix_traverse{
     public:
-    void bfs_m(vector<vector<int>>& grid, int row, int col, vector<vector<int>>& vis){
+    void bfs_m8(vector<vector<int>>& grid, int row, int col, vector<vector<int>>& vis){
         vis[row][col]=1;
         int n=grid.size();
         int m=grid[0].size();
@@ -74,7 +74,7 @@ int numberofislands(vector<vector<int>>& grid){ //grid is adj_matrix type of thi
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
             if(!vis[i][j] && grid[i][j]!=0){
-                mt.bfs_m(grid,i,j,vis);
+                mt.bfs_m8(grid,i,j,vis);
                 count++;
             }
         }        
