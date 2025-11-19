@@ -5,6 +5,20 @@
 #define cy cout << "YES" << endl
 #define cn cout << "NO" << endl
 using namespace std;
+// This program has all tree functions, here are all types of trees:
+/*Full Binary Tree (or Proper/Strict Binary Tree): In this type, every node has either zero or two children. No node has only 
+one child. 
+
+Perfect Binary Tree: A perfect binary tree is a full binary tree where all leaf nodes are at the same depth, and all internal 
+nodes have exactly two children. This means every level of the tree is completely filled.
+
+Complete Binary Tree: In a complete binary tree, all levels are completely filled except possibly the last level, which is filled
+ from left to right. This means new nodes are added level by level, starting from the leftmost position in the current level.(heap)
+
+ Balanced Binary Tree: A balanced binary tree ensures that the height difference between the left and right subtrees of any node 
+is at most one. This property helps maintain efficient search and insertion operations by preventing the tree from becoming skewed 
+and resembling a linked list. AVL trees and Red-Black trees are examples of self-balancing binary search trees. 
+*/
 // declaring Node of tree
 class Node{
     public:

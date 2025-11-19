@@ -6,8 +6,8 @@
 #define cn cout << "NO" << endl
 using namespace std;
 vector<vector<int>> adj_matrix(int n, int m){
-    vector<vector<int>> arr(n+1, vector<int>(n+1,0));
-    for(int i=0;i<m;i++){
+    vector<vector<int>> arr(n+1, vector<int>(m+1,0));
+    for(int i=0;i<=m;i++){
         int u,v;
         cin>>u>>v;
         arr[u][v]=1;

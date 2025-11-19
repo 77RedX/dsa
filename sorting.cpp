@@ -64,6 +64,47 @@ void quickSort(vi &a, int low, int high){
     }
     return;
 }
+//  k-way sorting
+struct Node {
+    int value;
+    int runIndex;     // from which run the value came
+    int posInRun;     // index inside that run
+};
+
+struct Compare {
+    bool operator()(Node a, Node b) {
+        return a.value > b.value;  // min-heap
+    }
+};
+
+// k-way merge
+vector<int> kWayMerge(vector<vector<int>> &runs) {
+    priority_queue<Node, vector<Node>, Compare> pq;
+    vector<int> output;
+
+    // initialize heap with first element of each run
+    for (int i = 0; i < runs.size(); i++) {
+        if (!runs[i].empty())
+            pq.push({runs[i][0], i, 0});
+    }
+
+    while (!pq.empty()) {
+        Node temp = pq.top();
+        pq.pop();
+
+        output.push_back(temp.value);
+
+        // insert next element from the same run
+        int nextPos = temp.posInRun + 1;
+        int run = temp.runIndex;
+
+        if (nextPos < runs[run].size())
+            pq.push({runs[run][nextPos], run, nextPos});
+    }
+
+    return output;
+}
+
 
 int32_t main(){
     ios::sync_with_stdio(false);
