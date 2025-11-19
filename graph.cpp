@@ -5,13 +5,13 @@
 #define cy cout << "YES" << endl
 #define cn cout << "NO" << endl
 using namespace std;
-vector<vector<int>> adj_matrix(int n, int m){
-    vector<vector<int>> arr(n+1, vector<int>(m+1,0));
+vector<vector<int>> adj_matrix(int n, int m){           //n nodes and m edges
+    vector<vector<int>> arr(n+1, vector<int>(n+1,0));
     for(int i=0;i<=m;i++){
         int u,v;
         cin>>u>>v;
         arr[u][v]=1;
-        arr[v][u]=1;
+        arr[v][u]=1;                                     //bidirectional graph/undirected
     }
     return arr;
 }

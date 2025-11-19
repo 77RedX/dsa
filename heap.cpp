@@ -50,10 +50,10 @@ void heapify_check(vi &a, int n, int i){
     int largest=i;
     int left=2*i;
     int right=2*i+1;
-    if(left<n && a[largest]<a[left]){
+    if(left<=n && a[largest]<a[left]){
         largest=left;
     }
-    if(right<n && a[largest]<a[right]){
+    if(right<=n && a[largest]<a[right]){
         largest=right;
     }
 
@@ -62,9 +62,9 @@ void heapify_check(vi &a, int n, int i){
         heapify_check(a,n,largest);
     }
 }
-void heapify(vi &a){
+void heapify(vi &a){// agar 6 size ka array hai to heap me 5 element hai 1 to 5 numbered
     int n=a.size()-1;
-    for(int i=n/2;i>0;i++){
+    for(int i=n/2;i>0;i--){
         heapify_check(a,n,i);
     }
 }
@@ -72,6 +72,18 @@ void heapify(vi &a){
 int32_t main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    vector<int> a(1);
+    vector<int> a;
+    a.push_back(-1);
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        a.push_back(x);
+    }
+    heapify(a);
+    for(int i=1;i<a.size();i++){
+        cout<<a[i]<<" ";
+    }
     return 0;
 }
