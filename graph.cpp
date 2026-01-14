@@ -53,7 +53,7 @@ class matrix_traverse{
             int col=q.front().second;
             q.pop();
             for(int delr=-1;delr<=1;delr++){
-                for(int delc=-1;delc<=1;delc++){
+                for(int delc=-1;delc<=1;delc++){// these two loops combined will give all 8 directions movement
                     int newr=row+delr;
                     int newc=col+delc;
                     if(newr>=0 && newr<n && newc>=0 && newc<m && !vis[newr][newc] && grid[newr][newc]==1){
@@ -65,7 +65,7 @@ class matrix_traverse{
         }
     }
 };
-int numberofislands(vector<vector<int>>& grid){ //grid is adj_matrix type of thing
+int numberofislands(vector<vector<int>>& grid){ //grid is a matrix representing information. 1 for land and 0 for water here
     int n=grid.size();
     int m=grid[0].size();
     int count=0;
