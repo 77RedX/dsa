@@ -83,12 +83,14 @@ int numberofislands(vector<vector<int>>& grid){ //grid is adj_matrix type of thi
 }
 class traverse{
     public:
-    vector<int> BFS(int n, vector<vector<int>> adj_list){
-        vector<int> vis (n,0);
+    vector<int> BFS(int n, vector<vector<int>> adj_list){// this function does not store level, even though it does level traversal
+        vector<int> vis (n,0);// update: now this can handle levels, could've also used pair but mingw doesnt like it i guess
         vis[0]=1;
         //let starting node be 0
         queue<int> q;
         q.push(0);
+        vector<int> level(n,-1);//not reached yet so all -1
+        level[0]=0;
         vector<int> bfs;
         while(!q.empty()){
             int node=q.front();
@@ -96,6 +98,7 @@ class traverse{
             bfs.push_back(node);
             for(auto i: adj_list[node]){
                 if(!vis[i]){
+                    level[i]=level[node]+1;
                     vis[i]=1;
                     q.push(i);
                 }
@@ -121,6 +124,24 @@ class traverse{
         }
     }
 };
+vector<int> shortest_path(vector<vector<int>> adj_list, int start){
+    int n=adj_list.size();
+    vector<int> dist(n,1e9);
+    queue<int> q;
+    dist[start]=0;
+    q.push(start);
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        for(auto i: adj_list[node]){
+            if(dist[node]+1<dist[i]){ // Can also use dist[i]==1e9, but Dijkstra algo uses this so just to keep things same
+                dist[i]=dist[node]+1;
+                q.push(i);
+            }
+        }
+    }
+    return dist;
+}
 int32_t main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
