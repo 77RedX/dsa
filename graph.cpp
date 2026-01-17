@@ -42,6 +42,28 @@ int number_province(int n, vector<vector<int>> adj_list){
 }
 class matrix_traverse{
     public:
+    vector<int> dr={1,0,0,-1};
+    vector<int> dc={0,1,-1,0};
+    void bfs_m4(vector<vector<int>> & grid, int row, int col, vector<vector<int>>& vis){
+        vis[row][col]=1;
+        int n=grid.size();
+        int m=grid[0].size();
+        queue<pair<int,int>> q;
+        q.push({row,col});
+        while(!q.empty()){
+            int row=q.front().first;
+            int col=q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++){
+                int newr=row+dr[i];
+                int newc=col+dc[i];
+                if(newr>=0 && newr<n && newc>=0 && newc<m && !vis[newr][newc] && grid[newr][newc]==1){
+                    vis[newr][newc]=1;
+                    q.push({newr,newc});
+                }
+            }
+        }
+    }
     void bfs_m8(vector<vector<int>>& grid, int row, int col, vector<vector<int>>& vis){
         vis[row][col]=1;
         int n=grid.size();
@@ -142,9 +164,85 @@ vector<int> shortest_path(vector<vector<int>> adj_list, int start){
     }
     return dist;
 }
+int rotten_oranges(vector<vector<int>>& grid){
+    //check rotten oranges first
+    int n=grid.size();
+    int m=grid[0].size();
+    queue<pair<pair<int,int>,int>> q; //{{r,c},t}
+    vector<vector<int>> vis(m,vector<int>(m));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(grid[i][j]==2){
+                q.push({{i,j},0});
+                vis[i][j]=2; //visited and rotten
+            }
+            else{
+                vis[i][j]=0;
+            }
+        }
+    }
+    int tim=0;
+    while(!q.empty()){
+        int row=q.front().first.first;
+        int col=q.front().first.second;
+        int t=q.front().second;
+        tim=max(tim,t);
+        q.pop();
+        vector<int> dr={-1,0,0,1};
+        vector<int> dc={0,1,-1,0};
+        for(int i=0;i<4;i++){
+            newr=row+dr[i];
+            newc=col+dc[i];
+            if(newr>=0 && newr<n && newc>=0 && newc<m && vis[newr][newc]!=2 && grid[newr][newc]==1){
+                q.push({{newr,newc},t+1});
+                vis[newr][newc]==2;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]!=2 && grid[i][j]==1){
+                    return -1;
+                }
+            }
+    }
+    return tim;
+}
+class isCycle{
+    private:
+    bool detect(int src, vector<vector<int>> adj, vector<int>& vis){
+        vis[src]=1;
+        queue<<pair<int,int>> q;
+        q.push({src,-1});
+        while(!q.empty()){
+            int node=q.front().first;
+            int parent=q.front().second;
+            q.pop();
+            for(auto i: adj[node]){
+                if(!vis[i]){
+                    vis[i]=1;
+                    q.push({i,node});
+                }
+                else if(parent!=i){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public:
+    bool Cycle(int V, vector<vector<int>> adj){//detecting cycle in undirected graph, graph can be broken into multiple components
+        vector<int> vis(V);
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                if(detect(i,adj,vis)) return true;
+            }
+        }
+        return false;
+    }
+};
 int32_t main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    
     return 0;
 }
