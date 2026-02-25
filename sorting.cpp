@@ -44,17 +44,24 @@ void bubble(vi &a){
         }
     }
 }
-int partition(vi &a, int low, int high){
-    int pivot=a[high];
-    int i=low-1;
-    for(int j=low;j<high;j++){
-        if(a[j]<pivot){
+
+// Quick Sort
+int partition(vi &a, int low, int high){//1st element is pivot
+    int pivot=a[low];
+    int i=low;
+    int j=high;
+    while(i<j){
+        while(a[i]<=pivot && i<=high-1){
             i++;
-            swap(a[i],a[j]);
         }
+        while(a[j]>pivot && j>=low+1){
+            j--;
+        }
+        if(i<j) swap(a[i],a[j]);
     }
-    swap(a[i+1],a[high]);
-    return i+1;
+    swap(a[j],a[low]); // placing in the correct place;
+    return j;
+    
 }
 void quickSort(vi &a, int low, int high){
     if(low<high){
@@ -76,6 +83,7 @@ struct Compare {
         return a.value > b.value;  // min-heap
     }
 };
+
 
 // k-way merge
 vector<int> kWayMerge(vector<vector<int>> &runs) {
@@ -105,15 +113,50 @@ vector<int> kWayMerge(vector<vector<int>> &runs) {
     return output;
 }
 
+//Merge Sort
+void merge(vi &a,int l, int mid, int h){//sort krke return
+    int fo=l;
+    int ft=mid+1;
+    vi temp;
+    while(fo<=mid && ft<=h){
+        if(a[fo]>a[ft]){
+            temp.push_back(a[ft]);
+            ft++;
+        }
+        else{
+            temp.push_back(a[fo]);
+            fo++;
+        }
+    }
+    while(fo<=mid){
+        temp.push_back(a[fo]);
+        fo++;
+    }
+    while(ft<=h){
+        temp.push_back(a[ft]);
+        ft++;
+    }
+    //temp is completely sorted now, now we swap it with og array a;
+    for(int i=l;i<=h;i++){
+        a[i]=temp[i-l];
+    }
+}
+
+void mergediv(vi &a, int l, int h){
+    if(l>=h){// 1 element remaining in array
+        return;
+    }
+    int mid=l+((h-l)/2);
+    mergediv(a,l,mid);
+    mergediv(a,mid+1,h);
+    merge(a,l,mid,h);
+}
 
 int32_t main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int n;
-    cin>>n;
-    vi a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
-    quickSort(a,0,n-1);
+    vi a={1,6,7,4,5,2,3};
+    quickSort(a,0,a.size()-1);
     arrprint(a);
     return 0;
 }
